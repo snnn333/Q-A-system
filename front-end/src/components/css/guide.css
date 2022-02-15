@@ -1,0 +1,131 @@
+.top{
+  /* 设置宽度高度背景颜色 */
+  height: 67px; /*高度*/
+  width:100%;
+  margin-left: 0;
+  background:rgb(255, 255, 255);
+  position: fixed; /*固定在顶部*/
+  top: 0px;/*离顶部的距离为0*/
+  margin-bottom: 2%;
+  border-bottom: 1px solid #dee2e6;
+  z-index:5000;
+}
+.top ul{
+  /* 清除ul标签的默认样式 */
+  width: auto;/*宽度也改为自动*/
+  list-style-type: none;
+  white-space:nowrap;
+  overflow: hidden;
+  margin-left: 2%;
+}
+
+.top li{
+  float:left; /* 使li内容横向浮动，即横向排列  */
+  margin-right:5%;  /* 两个li之间的距离*/
+  position: relative;
+  overflow: hidden;
+}
+
+.top li a{
+  /* 设置链接内容显示的格式*/
+  display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+  color:rgb(153, 148, 148);
+  font-size: 20px;
+  text-align: center;
+  padding: 3px;
+  overflow: hidden;
+  text-decoration: none; /*去除下划线*/
+  cursor: pointer;
+}
+.top li a:hover{
+  /* 鼠标选中时加下划线 */
+  color: #bd5151;
+  padding-bottom: 20px;
+  border-bottom:  2px solid rgb(189, 81, 81);
+}
+/*.top ul li ul{
+    !* 设置二级菜单 *!
+    margin-left: -0.2px;
+    background:rgb(255, 255, 255);
+    position: relative;
+    display: none; !* 默认隐藏二级菜单的内容 *!
+    }
+.top ul li ul li{
+   !* 二级菜单li内容的显示 *!
+    float:none;
+    text-align: center;
+    }
+.top ul li:hover ul{
+    !* 鼠标选中二级菜单内容时 *!
+   display: block;
+    }*/
+.top i{
+  font-size:25px;
+}
+i.font2{
+  font-size:20px;
+  color: #ff9497;
+}
+i.font3{
+  font-size:20px;
+  color: #ffc941;
+}
+i.font4{
+  font-size:20px;
+  color: #67bfc9;
+}
+body{
+  background:#eff3f5;}
+.link01
+{
+  margin-top: -7px;
+  font-size:35px;
+  color:#bd5151;
+}
+.link02
+{
+  font-size:25px;
+}
+#link03
+{
+  color:#bd5151;
+
+}
+.nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.nav-tabs .nav-item{
+  margin-bottom: -1px;
+}
+a:-webkit-any-link {
+  /*color: -webkit-link;*/
+  cursor: pointer;
+  /*text-decoration: underline;*/
+}
+ul{
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+li{
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+a{
+  display: block;
+  padding: .5rem 1rem;
+  color: #bd5151;
+  border: 1px solid transparent;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}

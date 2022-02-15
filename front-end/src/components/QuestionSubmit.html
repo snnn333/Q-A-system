@@ -1,0 +1,391 @@
+﻿<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>Submit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/icon/iconfont.css"/>
+  <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/top.css">
+  <link rel="stylesheet" href="./css/buttonBox.css">
+  <link rel="stylesheet" type="text/css" href="./css/modalBox.css">
+  <link rel="stylesheet" href="../editor.md/css/editormd.css" />
+  <link rel="stylesheet" type="text/css" href="checkbox/css/select-vue-component.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+  <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+
+  <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="checkbox/js/lib/vue.min.js"></script>
+  <script type="text/javascript" src="checkbox/js/select-vue-component.js"></script>
+</head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    *, *:before, *:after {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    #layout {
+      text-align: left;
+    }
+
+    #layout > header, .btns {
+      /*padding: 40px 0;*/
+      padding-top: 40px;
+      padding-bottom: 5px;
+      width: 90%;
+      margin: 0 auto;
+    }
+    .btns {
+      padding-top: 0;
+      margin: 0 0px;
+    }
+
+    .btns button {
+      padding: 2px 0px;
+    }
+
+    .btns button, .btn {
+      padding: 8px 10px;
+      background: #fff;
+      border: 1px solid #ddd;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      cursor: pointer;
+      -webkit-transition: background 300ms ease-out;
+      transition: background 300ms ease-out;
+    }
+
+    .btns button:hover, .btn:hover {
+      background: #f6f6f6;
+      border-color: rgba(189,81,81,.8);
+    }
+  .btns button:focus{
+    outline: none;
+  }
+    #triggerBtn{
+      background:none;
+      border: none;
+    }
+
+    .input-group .form-control{
+      height: 100px;
+      weight:30%;
+    }
+    .form-control:focus{
+      /*box-shadow: none;*/
+      /*border: 2px solid salmon;*/
+      border-color: rgba(189,81,81,.8);
+      box-shadow: 0 0 8px rgba(189,81,81,.6);
+    }
+  </style>
+<body>
+<div id="layout">
+  <header>
+    <div class="top">
+      <ul>
+        <li class="link01">Q/A SYSTEM</li>
+        <li class="link02"><a href="#"><i class="iconfont">&#xe625;</i>&nbsp&nbsp首页</a></li>
+        <li><a href="#" id="link03"><i class="iconfont">&#xe7bf;</i>&nbsp&nbsp提问</a></li>
+        <li class="link02">
+          <a href="#"><i class="iconfont">&#xe627;</i>&nbsp&nbsp社区</a>
+          <!-- <ul>
+              <li><a href="#">二级菜单</a></li>
+              <li><a href="#"%>二级菜单</a></li>
+          </ul> -->
+        </li>
+
+
+        <div class="buBox bu">
+          <!-- 触发按钮 -->
+          <button id="triggerBtn"><li><a href="#"><i class="iconfont">&#xe601;</i></a></li></button>
+          <!--模态框 -->
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2>头部</h2>
+                <span id="closeBtn" class="close">×</span>
+              </div>
+              <div class="modal-body">
+                <p>这是一个模态框！</p>
+                <p>喜欢就点个赞吧！</p>
+              </div>
+              <div class="modal-footer">
+                <h3>尾部</h3>
+              </div>
+            </div>
+          </div>
+          <script type="text/javascript" src="css/modalBox.js"></script>
+        </div>
+      </ul>
+    </div>
+
+    <div class="myApp">
+      <div class="wrapper">
+
+        <h4>请选择问题类别</h4>
+        <single-select v-bind:optionsdata="single.originOptions" v-bind:selecteddata="single.selected" v-on:selected="singleCallback"></single-select>
+
+        <h4>请为你的问题添加标签</h4>
+        <custom-multiple-input v-bind:selecteddata="customMultiple.selectedList" v-on:inputed="customMultipleCallback"></custom-multiple-input>
+
+        <h4>请为你的问题添加标题</h4>
+        <!--  <input type="text"  name="title">-->
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="请输入您的问题标题" id="title" name="title">
+       </div>
+
+        <!-- 输出log -->
+
+          <div class="btns" style="margin-top:0;">
+            <button id="save-btn" type="submit" v-on:click.stop="btnSave()">保存</button>
+            <button id="submit-btn" type="submit" v-on:click.stop="btnSub()">提交</button>
+          </div>
+      </div>
+      <!--样式-->
+      <div class="wrapper" style="display: none;">
+        <h3>单选</h3>
+        <div class="functional-select-wrapper">
+          <!-- 展示 -->
+          <label class="display-container clearfix" for="functional-select-search">
+            <p class="single-selected">lemon</p>
+            <i class="drop">▼</i>
+          </label>
+          <!-- 下拉 -->
+          <div class="options-container">
+            <div class="search-container">
+              <input placeholder="search here" id="functional-select-search" />
+            </div>
+            <ul class="options-ul-list">
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+              <li>123</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="test-editor">
+    <textarea id="content" name="content" style="display:none">在这里输入
+
+    </textarea>
+  </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../editor.md/editormd.js"></script>
+<script type="text/javascript">
+  $(function() {
+    var editor = editormd("test-editor", {
+      width  : "87.5%",
+      height : 740,
+      path   : "../editor.md/lib/"
+    });
+    /*$("#save-btn").bind("click", function(){
+
+      // console.log('自定义输入输出结果' + JSON.stringify(this.customMultiple));
+    });
+
+    $("#submit-btn").bind('click', function(){
+
+    });
+
+    $("#clear-btn").bind('click', function(){
+      mySelf.multiple.originOptions = []
+      mySelf.multiple.selectedList = []
+    });*/
+  });
+</script>
+
+<script type="text/javascript">
+
+  var myController = new Vue({
+    el: '.myApp',
+    data: {
+        single: {
+          originOptions: [],
+          selected:{}
+        },
+        multiple: {
+          originOptions: [],
+          selectedList: []
+        },
+        customMultiple: {
+          selectedList: []
+        },
+      },
+
+    ready: function() {
+      this.queryData();
+    },
+    methods: {
+      queryData: function () {
+        let mySelf = this;
+        //do ajax here
+        // 单选
+        // mySelf.single.originOptions = [{"id":"1","name":"lemon"},{"id":"2","name":"mike"},{"id":"3","name":"lara"},{"id":"4","name":"zoe"},{"id":"5","name":"steve"},{"id":"6","name":"nolan"}];
+        //mySelf.single.selected = {"id":"6","name":"nolan"}
+
+        axios.get('http://localhost:8080/javaweb/QL',
+                {
+                  params: {
+                    action: "select",
+                    entity: "QuestionType",
+                  }
+                })
+                .then(function (response) {
+                  console.log(response);
+                  for (let i = 0; i < response.data.length; i++) {
+                    mySelf.single.originOptions.push(response.data[i]);
+                  }
+                })
+        this.$nextTick(function () {
+        })
+      },
+      singleCallback: function (data) {
+        this.single.selected = data;
+        console.log('父级元素调用singleCallback 选中的是' + JSON.stringify(data))
+      },
+      /* multipleCallback: function (data) {
+        this.multiple.selectedList = data;
+        console.log('父级元素调用multipleSelected 选中的是' + JSON.stringify(data))
+      },*/
+      customMultipleCallback: function (data) {
+        this.customMultiple.selectedList = data;
+        // console.log('父级元素调用customMultipleInputed 选中的是' + JSON.stringify(data))
+
+      },
+      /*multipleSimplifyCallback: function (data) {
+        this.multipleSimplify.selectedList = data;
+        // console.log('父级元素调用multipleSimplifySelected 选中的是' + JSON.stringify(data))
+
+      },*/
+
+      // log: function(){
+      //   var mySelf = this
+      //   // console.log('单选输出结果' + JSON.stringify(this.single));
+      //   console.log('多选输出结果' + JSON.stringify(this.multiple));
+      //   console.log('自定义输入输出结果' + JSON.stringify(this.customMultiple));
+      //   // console.log('多选（数据格式简化 非json）' + JSON.stringify(this.multipleSimplify));
+      // },
+      // clear: function(){
+      //   var mySelf = this;
+      //
+      //   //mySelf.multiple.selectedList  = null
+      //   //mySelf.customMultiple.selectedList = null
+      // }
+      btnSave: function () {
+        let title = document.getElementById("title").value;
+        let content = document.getElementById("content").value;
+        let label = '';
+        for (let i = 0; i < this.customMultiple.selectedList.length; i++) {
+          label += this.customMultiple.selectedList[i] + ',';
+        }
+        var str = String(label);
+        console.log('单选输出结果' + JSON.stringify(this.single.selected));
+        console.log('标签输出结果' + label);
+        console.log('内容输出结果' + content);
+        console.log('标题输出结果' + title);
+
+        console.log(this.single.selected.id)
+
+        axios({
+          method: 'post',
+          url: 'http://localhost:8080/javaweb/QL',
+          params: {
+            action: "insert",
+            entity: "Question",
+            QuestionType: this.single.selected.id,
+            lable: label,
+            title: title,
+            content: content,
+          },
+
+        }).then(function (response) {
+          if(response.data.trim()=="error")
+          {
+            alert("提交失败！");
+          }
+          else if(response.data.trim()=="success")
+          {
+            alert("提交成功！");
+          }
+          console.log(response);
+        })
+                .catch(function (error) {
+                  console.log(error);
+                })
+      },
+
+      btnSub: function () {
+        let title = document.getElementById("title").value;
+        let content = document.getElementById("content").value;
+        let label = '';
+        for (let i = 0; i < this.customMultiple.selectedList.length; i++) {
+          label += this.customMultiple.selectedList[i] + ',';
+        }
+        var str = String(label);
+        console.log('单选输出结果' + JSON.stringify(this.single.selected));
+        console.log('单选输出结果' + JSON.stringify(this.single.originOptions));
+        console.log('标签输出结果' + label);
+        console.log('内容输出结果' + content);
+        console.log('标题输出结果' + title);
+        console.log(this.single.selected.id)
+
+        axios({
+          method: 'post',
+          url: 'http://localhost:8080/javaweb/QL',
+          params: {
+            action: "insert",
+            entity: "Question",
+            QuestionType: this.single.selected.id,
+            lable: label,
+            title: title,
+            content: content,
+          },
+
+        }).then(function (response) {
+        if(response.data.trim()=="error")
+          {
+            alert("提交失败！");
+          }
+        else if(response.data.trim()=="success")
+          {
+            alert("提交成功！");
+          }
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      }
+    }
+  })
+</script>
+</body>
+</html>
